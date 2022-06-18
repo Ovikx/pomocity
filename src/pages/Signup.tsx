@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export const Signup = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const data = {
             email: email,
@@ -13,6 +14,7 @@ export const Signup = () => {
             password: password
         };
         // axios post request below
+        console.log(data);
     }
 
     return (
