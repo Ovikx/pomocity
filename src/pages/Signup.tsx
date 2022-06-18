@@ -13,8 +13,11 @@ export const Signup = () => {
             username: username,
             password: password
         };
+
         // axios post request below
-        console.log(data);
+        axios.post('/sign-up-post/', data)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     return (
