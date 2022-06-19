@@ -17,7 +17,9 @@ export const Signup = () => {
         // axios post request below
         axios.post('/sign-up/', data)
             .then(response => console.log(response))
-            .catch(error => console.log(error));
+            .catch(error => {
+                alert(JSON.stringify(error.response.data));
+            });
     }
 
     return (

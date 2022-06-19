@@ -11,11 +11,17 @@ mongo_client = AsyncIOMotorClient(os.getenv('MONGO_KEY'))
 db = mongo_client['web_data']
 users_col = db['users']
 
-async def user_exists(email):
-    result = await users_col.find_one({'credentials.email': email})
+async def user_exists(field: str, value: str) -> bool:
+    '''
+    Checks if there is a user document with a matching `field: value` pair.
+    '''
+    result = await users_col.find_one({field: value})
     return result != None
 
-async def create_user(email, username, password):
+async def create_user(email: str, username: str, password: str):
+    '''
+    Creates a new user in the database.
+    '''
     salt = secrets.token_hex(32)
     hashed = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 10000).hex()
     auth_token = secrets.token_urlsafe(32)
@@ -30,7 +36,11 @@ async def create_user(email, username, password):
         }
     })
 
-async def login(username, password):
+async def login(username: str, password: str) -> dict:
+    '''
+    Logs the user in if the password is correct.
+    Refreshes the auth token and sets an expiration date for it.
+    '''
     user_matches = await (users_col.find({'credentials.username': username})).to_list(length=10000)
     for user in user_matches:
         salt = user['credentials']['salt']
