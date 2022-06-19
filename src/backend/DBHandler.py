@@ -45,3 +45,14 @@ async def login(username, password):
             return {'success': True, 'auth-token': auth_token}
 
     return {'success': False, 'auth-token': None}
+
+'''
+1. user logs in (post request is sent)
+2. backend creates auth token and expiration date and sends auth token as response body
+3. frontend saves auth token in a cookie
+
+4. auth token is always checked against the database
+
+5. user logs out (post request is sent)
+6. backend changes the auth token (no expiration date is set yet)
+'''
