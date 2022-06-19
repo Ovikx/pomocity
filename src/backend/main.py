@@ -4,14 +4,16 @@ import DBHandler as dh
 
 app = FastAPI()
 
-@app.post('/api/login-post/', status_code=200)
+@app.post('/api/login/', status_code=200)
 async def login(user: models.UserLogin, response: Response):
     print(f'Received {user}')
-    is_valid = await dh.validate_login(user.username, user.password)
-    if not is_valid:
+    login_response = await dh.login(user.username, user.password)
+    if not login_response['success']:
         response.status_code = status.HTTP_401_UNAUTHORIZED
+    else:
+        return {'new-auth-token': login_response['auth-token']}
 
-@app.post('/api/sign-up-post/', status_code=201)
+@app.post('/api/sign-up/', status_code=201)
 async def signup(user: models.UserSignup, response: Response):
     print(f'Received {user}')
     user_exists = await dh.user_exists(user.email)
