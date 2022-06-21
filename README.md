@@ -4,7 +4,7 @@ A Pomodoro-style productivity app where users can passively build skyscrapers by
 
 ---
 
-Planned features:
+## Planned features:
 - Task organization
     - Projects (cities) and tasks (skyscrapers)
 - Different types of skyscrapers (rarity varies)
