@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setAuth, selectAuth } from '../features/authorization/AuthSlice';
 
 export const Login = () => {
+    const dispatch = useAppDispatch();
+    const auth = useAppSelector(selectAuth);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const cookies = new Cookies();
         const data = {
             username: username,
             password: password
         };
         axios.post('/login/', data)
             .then(response => {
-                cookies.set('username', data.username, {path: '/'});
-                cookies.set('auth-token', response.data['new-auth-token'], {path: '/'});
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('auth-token', response.data['new-auth-token']);
+                dispatch(setAuth(true));
                 navigate('/', {replace: true});
             })
             .catch(error => {
