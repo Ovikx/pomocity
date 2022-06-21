@@ -11,7 +11,7 @@ async def login(user: models.UserLogin, response: Response):
     if not login_response['success']:
         response.status_code = status.HTTP_401_UNAUTHORIZED
     else:
-        return {'new_auth-token': login_response['auth-token']}
+        return {'new-auth-token': login_response['auth-token']}
 
 @app.post('/api/sign-up/', status_code=201)
 async def signup(user: models.UserSignup, response: Response):
@@ -35,3 +35,9 @@ async def signup(user: models.UserSignup, response: Response):
                 'email-exists': email_exists,
                 'database-error': True
             }
+
+@app.post('/api/check-token/', status_code=200)
+async def check_token(user: models.UserToken, response: Response):
+    db_response = await dh.validate_token(user.username, user.token)
+    if not db_response:
+        response.status_code = status.HTTP_401_UNAUTHORIZED

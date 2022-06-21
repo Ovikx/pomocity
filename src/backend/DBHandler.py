@@ -32,7 +32,7 @@ async def create_user(email: str, username: str, password: str):
             'password': hashed,
             'salt': salt,
             'auth-token': auth_token,
-            'expiration-date': None
+            'expiry': None
         }
     })
 
@@ -50,11 +50,32 @@ async def login(username: str, password: str) -> dict:
             auth_token = secrets.token_urlsafe(32)
             await users_col.update_one({'credentials.username': username}, {'$set': {
                 'credentials.auth-token': auth_token,
-                'credentials.expiration-date': datetime.datetime.utcnow() + datetime.timedelta(days=30)
+                'credentials.expiry': datetime.datetime.utcnow() + datetime.timedelta(days=30)
             }})
             return {'success': True, 'auth-token': auth_token}
 
     return {'success': False, 'auth-token': None}
+
+async def validate_token(username: str, token: str) -> bool:
+    '''
+    Checks if the user's cookie auth token is valid.
+    If the auth token doesn't match or has expired, the function will return `False`.
+    '''
+    user_data = await users_col.find_one(
+        {'credentials.username': username},
+        {
+            'credentials.auth-token': 1,
+            'credentials.expiry': 1
+        }
+    )
+
+    db_token = user_data['credentials']['auth-token']
+    db_expiry = user_data['credentials']['expiry']
+    print(db_token, db_expiry)
+    if token != db_token or datetime.datetime.utcnow() > db_expiry:
+        return False
+    return True
+    
 
 '''
 1. user logs in (post request is sent)
