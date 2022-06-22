@@ -8,11 +8,11 @@ import { Home } from './pages/Home';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
 import { Collection } from './pages/Collection';
+import { NoMatch } from './pages/NoMatch';
 
 // Store
 import { useAppDispatch } from './app/hooks';
 import { setAuth } from './features/authorization/AuthSlice';
-
 
 export const App = () => {
     const [loading, setLoading] = useState(true);
@@ -48,6 +48,7 @@ export const App = () => {
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/collection' element={<ProtectedRoute><Collection /></ProtectedRoute>} />
+                <Route path='*' element={<NoMatch />} />
             </Routes>
         </BrowserRouter>
     )
