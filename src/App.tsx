@@ -9,6 +9,7 @@ import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
 import { Collection } from './pages/Collection';
 import { NoMatch } from './pages/NoMatch';
+import { Work } from './pages/Work';
 
 // Store
 import { useAppDispatch } from './app/hooks';
@@ -47,6 +48,7 @@ export const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/work' element={<Work />} />
                 <Route path='/collection' element={<ProtectedRoute><Collection /></ProtectedRoute>} />
                 <Route path='*' element={<NoMatch />} />
             </Routes>
