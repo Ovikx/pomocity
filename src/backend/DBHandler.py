@@ -71,7 +71,6 @@ async def validate_token(username: str, token: str) -> bool:
 
     db_token = user_data['credentials']['auth-token']
     db_expiry = user_data['credentials']['expiry']
-    print(db_token, db_expiry)
     if token != db_token or datetime.datetime.utcnow() > db_expiry:
         return False
     return True
