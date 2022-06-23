@@ -27,6 +27,10 @@ export const Timer = (props: Props) => {
         }
     }, [timer, timerOn]);
 
+    useEffect(() => {
+        setTimer(props.seconds);
+    }, [props.seconds])
+
     const startClick = () => {
         setTimerOn(true)
     }
