@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree, ReactThreeFiber, extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import { createBuilding } from './SkyscraperBuilder';
+import { off } from 'process';
 
 export interface Segment {
     length: number,
@@ -75,16 +76,17 @@ interface CameraProps {
 const CustomCamera = (props: CameraProps) => {
     const ref = useRef<THREE.PerspectiveCamera>(null!);
     const factor = 2;
+    const offset = 2;
 
     useThree(({camera}) => {
         camera.translateY(1);
-        camera.position.set(0, 2, 2);
+        camera.position.y = 1.5;
     });
 
     useFrame((state, delta) => {
         state.camera.lookAt(new THREE.Vector3(0,props.lookHeight,0));
-        state.camera.position.x = Math.cos(state.clock.getElapsedTime()/factor);
-        state.camera.position.z = Math.sin(state.clock.getElapsedTime()/factor);
+        state.camera.position.x = Math.cos(state.clock.getElapsedTime()/factor)*offset;
+        state.camera.position.z = Math.sin(state.clock.getElapsedTime()/factor)*offset;
         console.log(state.camera.position.x);
     });
 
