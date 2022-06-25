@@ -87,7 +87,6 @@ const CustomCamera = (props: CameraProps) => {
         state.camera.lookAt(new THREE.Vector3(0,props.lookHeight,0));
         state.camera.position.x = Math.cos(state.clock.getElapsedTime()/factor)*offset;
         state.camera.position.z = Math.sin(state.clock.getElapsedTime()/factor)*offset;
-        console.log(state.camera.position.x);
     });
 
     return (
