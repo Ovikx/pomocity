@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Timer } from '../components/Timer';
+import { SkyscraperViewer } from '../features/skyscraperBuilding/SkyscraperViewer';
 
 export const Build = () => {
     const [minutes, setMinutes] = useState(25);
@@ -20,6 +21,7 @@ export const Build = () => {
             />
             <p>{minutes}</p>
             <Timer seconds={minutes*60} />
+            <SkyscraperViewer />
         </div>
     )
 }
