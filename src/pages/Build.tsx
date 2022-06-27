@@ -19,7 +19,6 @@ export const Build = () => {
                 onChange={handleChange}
                 value={minutes}
             />
-            <p>{minutes}</p>
             <Timer seconds={minutes*60} />
             <SkyscraperViewer />
         </div>

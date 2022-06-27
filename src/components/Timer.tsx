@@ -50,9 +50,22 @@ export const Timer = (props: Props) => {
         {timerOn ? 'Stop' : 'Start'}
     </button>;
 
+    const minutes: number = Math.floor(timer/60);
+    const seconds: number = timer%60;
+    let minuteString: string = String(minutes);
+    let secondString: string = String(seconds);
+    if (minutes < 10) {
+        minuteString = `0${minutes}`
+    }
+
+    if (seconds < 10) {
+       secondString = `0${seconds}`
+    }
+    const clock: string = minuteString + ':' + secondString;
+
     return (
         <div>
-            <p>{timer}</p>
+            <p>{clock}</p>
             {startStopButton}
             <button onClick={pauseClick}>Pause</button>
         </div>
