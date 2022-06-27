@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { GuestRoute } from './components/GuestRoute';
 
 // Pages
 import { Home } from './pages/Home';
@@ -46,8 +47,8 @@ export const App = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<GuestRoute><Signup /></GuestRoute>} />
+                <Route path='/login' element={<GuestRoute><Login /></GuestRoute>} />
                 <Route path='/build' element={<Build />} />
                 <Route path='/collection' element={<ProtectedRoute><Collection /></ProtectedRoute>} />
                 <Route path='*' element={<NoMatch />} />
