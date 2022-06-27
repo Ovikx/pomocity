@@ -5,7 +5,6 @@ import { setAuth, selectAuth } from '../features/authorization/AuthSlice';
 
 export const GuestRoute = ({children}: any) => {
     const auth = useAppSelector(selectAuth);
-    console.log(`ProtectedRoute detected auth: ${auth}`);
 
     return (
        auth
