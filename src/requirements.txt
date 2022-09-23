@@ -1,0 +1,7 @@
+fastapi
+pydantic
+uvicorn
+motor
+secrets
+hashlib
+dotenv
