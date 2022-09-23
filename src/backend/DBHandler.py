@@ -7,7 +7,7 @@ import datetime
 
 load_dotenv()
 
-mongo_client = AsyncIOMotorClient(os.getenv('MONGO_KEY'))
+mongo_client = AsyncIOMotorClient(os.environ.get('MONGO_KEY'))
 db = mongo_client['web_data']
 users_col = db['users']
 
