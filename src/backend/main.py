@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, status, Request
 import models
 import DBHandler as dh
+import uvicorn
 
 app = FastAPI()
 
@@ -41,3 +42,6 @@ async def check_token(user: models.UserToken, response: Response):
     db_response = await dh.validate_token(user.username, user.token)
     if not db_response:
         response.status_code = status.HTTP_401_UNAUTHORIZED
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
